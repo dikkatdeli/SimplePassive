@@ -67,6 +67,31 @@ namespace SimplePassive.Client
         #region Ticks
 
         /// <summary>
+        /// Shows the text with the debugging information.
+        /// </summary>
+        [Tick]
+        public async Task ShowDebugText()
+        {
+            // If debug mode is disabled, just return
+            if (!Convars.Debug)
+            {
+                return;
+            }
+
+            // Create a text for the debug mode
+            string debugText = "Passive Players: ";
+            // Iterate over the list of players and add their activations
+            foreach (Player player in Players)
+            {
+                debugText += $" {player.ServerId} ({Convert.ToInt32(GetPlayerActivation(player.ServerId))})";
+            }
+            // Add the local activation onto the debug text
+            debugText += $"\nLocal Status: {GetPlayerActivation(Game.Player.ServerId)}";
+            // And draw it if the debug mode is enabled
+            new Text(debugText, new PointF(0, 0), 0.5f).Draw();
+        }
+
+        /// <summary>
         /// Tick event that handles the collisions of Passive Mode.
         /// </summary>
         /// <returns></returns>
@@ -84,9 +109,6 @@ namespace SimplePassive.Client
             {
                 API.ResetEntityAlpha(localVehicle.Handle);
             }
-
-            // Create a text for the debug mode
-            string debugText = "Passive Players: ";
 
             // Get the activation of the local player for later use
             bool localActivation = GetPlayerActivation(localPlayer.ServerId);
@@ -129,9 +151,6 @@ namespace SimplePassive.Client
                 // Get the correct activation for this player
                 bool playerActivation = GetPlayerActivation(player.ServerId);
                 bool disableCollisions = playerActivation || localActivation;
-
-                // Add the activation onto the debug text
-                debugText += $" {player.ServerId} ({(playerActivation ? 1 : 0)})";
 
                 // Save the ped and vehicle of the other player
                 Ped otherPed = player.Character;
@@ -214,14 +233,6 @@ namespace SimplePassive.Client
                         otherHooked?.DrawDebugMarker(100, 75, 80);
                     }
                 }
-            }
-
-            // Add the local activation onto the debug text
-            debugText += $"\nLocal Status: {localActivation}";
-            // And draw it if the debug mode is enabled
-            if (Convars.Debug)
-            {
-                new Text(debugText, new PointF(0, 0), 0.5f).Draw();
             }
 
             // Finally, disable the printing during the next tick (if enabled)
