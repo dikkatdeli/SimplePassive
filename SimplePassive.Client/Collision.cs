@@ -4,12 +4,29 @@ namespace SimplePassive.Client
 {
     public class Collision
     {
-        #region Properties
+        #region Private Fields
+
+        /// <summary>
+        /// Last vehicle known by the local player.
+        /// </summary>
+        private static Vehicle lastVehicle = null;
+        /// <summary>
+        /// Last hooked entity known by the local player.
+        /// </summary>
+        private static Vehicle lastHooked = null;
+
+        #endregion
+
+        #region Public Properties
 
         /// <summary>
         /// The player that owns this collision information.
         /// </summary>
         public Player Owner { get; }
+        /// <summary>
+        /// The ped that is controlled by this player.
+        /// </summary>
+        public Ped Ped { get; private set; } = null;
         /// <summary>
         /// The vehicle known used by this player.
         /// </summary>
