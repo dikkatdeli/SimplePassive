@@ -70,7 +70,7 @@ namespace SimplePassive.Client
         /// Tick event that handles the collisions of Passive Mode.
         /// </summary>
         /// <returns></returns>
-        [Tick]
+        // [Tick]
         public async Task HandleCollisions()
         {
             // Create some references to the local player ped and vehicle
@@ -250,8 +250,30 @@ namespace SimplePassive.Client
             // If the passive activation is for the current player
             if (handle == Game.Player.ServerId)
             {
-                // Set the correct activation for drive by-s
-                API.SetPlayerCanDoDriveBy(Game.Player.Handle, (!activation && Convars.DisableCombat) || !Convars.DisableCombat);
+                Player player = Game.Player;
+                Ped ped = Game.Player.Character;
+
+                if (activation)
+                {
+                    API.SetPedCanBeDraggedOut(ped.Handle, false);
+                    API.SetCurrentPedWeapon(ped.Handle, (uint)WeaponHash.Unarmed, true);
+                    API.SetPedConfigFlag(ped.Handle, 342, true);
+                    API.SetPedConfigFlag(ped.Handle, 122, true);
+                    API.SetPlayerVehicleDefenseModifier(player.Handle, 0.5f);
+                    API.NetworkSetPlayerIsPassive(true);
+                    // API.UsePlayerColourInsteadOfTeamColour(true);
+                    // API.NetworkSetFriendlyFireOption(false);
+                }
+                else
+                {
+                    API.SetPedCanBeDraggedOut(ped.Handle, true);
+                    API.SetPedConfigFlag(ped.Handle, 342, false);
+                    API.SetPedConfigFlag(ped.Handle, 122, false);
+                    API.SetPlayerVehicleDefenseModifier(player.Handle, 1f);
+                    API.NetworkSetPlayerIsPassive(false);
+                    // API.NetworkSetFriendlyFireOption(true);
+                    // API.UsePlayerColourInsteadOfTeamColour(false);
+                }
             }
         }
 
