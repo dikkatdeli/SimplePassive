@@ -109,8 +109,8 @@ namespace SimplePassive.Client
         /// <param name="alpha">The alpha value to set.</param>
         public static void SetAlpha(this Entity entity, int alpha)
         {
-            // If the alpha is 255, reset the alpha
-            if (alpha == 255)
+            // If the alpha is higher or equal than 255, reset the alpha
+            if (alpha >= 255)
             {
                 API.ResetEntityAlpha(entity.Handle);
             }
