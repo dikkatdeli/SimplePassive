@@ -1,4 +1,5 @@
 ﻿using CitizenFX.Core;
+using CitizenFX.Core.UI;
 
 namespace SimplePassive.Client
 {
@@ -89,6 +90,12 @@ namespace SimplePassive.Client
             // Once that is done, save the new one
             if (KnownPed != otherPed)
             {
+                if (Convars.Debug)
+                {
+                    string message = $"Player {Owner.Name} changed the ped!";
+                    Debug.WriteLine(message);
+                    Screen.ShowNotification(message);
+                }
                 KnownPed?.ChangeCollisions(localPed, true);
                 KnownPed?.ChangeCollisions(localVehicle, true);
                 KnownPed?.ChangeCollisions(localHooked, true);
@@ -99,6 +106,12 @@ namespace SimplePassive.Client
             }
             if (KnownVehicle != otherVehicle)
             {
+                if (Convars.Debug)
+                {
+                    string message = $"Player {Owner.Name} changed the vehicle!";
+                    Debug.WriteLine(message);
+                    Screen.ShowNotification(message);
+                }
                 KnownVehicle?.ChangeCollisions(localPed, true);
                 KnownVehicle?.ChangeCollisions(localVehicle, true);
                 KnownVehicle?.ChangeCollisions(localHooked, true);
@@ -109,6 +122,12 @@ namespace SimplePassive.Client
             }
             if (KnownHooked != otherVehicle)
             {
+                if (Convars.Debug)
+                {
+                    string message = $"Player {Owner.Name} changed the hooked vehicle!";
+                    Debug.WriteLine(message);
+                    Screen.ShowNotification(message);
+                }
                 KnownHooked?.ChangeCollisions(localPed, true);
                 KnownHooked?.ChangeCollisions(localVehicle, true);
                 KnownHooked?.ChangeCollisions(localHooked, true);
@@ -120,6 +139,12 @@ namespace SimplePassive.Client
 
             if (lastPed != localPed)
             {
+                if (Convars.Debug)
+                {
+                    string message = $"Local Player changed the ped!";
+                    Debug.WriteLine(message);
+                    Screen.ShowNotification(message);
+                }
                 lastPed?.ChangeCollisions(otherPed, true);
                 lastPed?.ChangeCollisions(otherVehicle, true);
                 lastPed?.ChangeCollisions(otherHooked, true);
@@ -130,6 +155,12 @@ namespace SimplePassive.Client
             }
             if (lastVehicle != localVehicle)
             {
+                if (Convars.Debug)
+                {
+                    string message = $"Local Player changed the vehicle!";
+                    Debug.WriteLine(message);
+                    Screen.ShowNotification(message);
+                }
                 lastVehicle?.ChangeCollisions(otherPed, true);
                 lastVehicle?.ChangeCollisions(otherVehicle, true);
                 lastVehicle?.ChangeCollisions(otherHooked, true);
@@ -140,6 +171,12 @@ namespace SimplePassive.Client
             }
             if (lastHooked != localHooked)
             {
+                if (Convars.Debug)
+                {
+                    string message = $"Local Player changed the hooked vehicle!";
+                    Debug.WriteLine(message);
+                    Screen.ShowNotification(message);
+                }
                 lastHooked?.ChangeCollisions(otherPed, true);
                 lastHooked?.ChangeCollisions(otherVehicle, true);
                 lastHooked?.ChangeCollisions(otherHooked, true);
