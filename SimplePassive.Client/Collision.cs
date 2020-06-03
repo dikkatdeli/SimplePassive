@@ -7,13 +7,17 @@ namespace SimplePassive.Client
         #region Private Fields
 
         /// <summary>
+        /// Last ped known by the local player.
+        /// </summary>
+        private Ped lastPed = null;
+        /// <summary>
         /// Last vehicle known by the local player.
         /// </summary>
-        private static Vehicle lastVehicle = null;
+        private Vehicle lastVehicle = null;
         /// <summary>
         /// Last hooked entity known by the local player.
         /// </summary>
-        private static Vehicle lastHooked = null;
+        private Vehicle lastHooked = null;
 
         #endregion
 
