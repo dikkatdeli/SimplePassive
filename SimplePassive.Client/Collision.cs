@@ -28,6 +28,10 @@ namespace SimplePassive.Client
         /// </summary>
         public Player Owner { get; }
         /// <summary>
+        /// The passive activation of this player.
+        /// </summary>
+        public bool LastActivation { get; set; }
+        /// <summary>
         /// The ped that is controlled by this player.
         /// </summary>
         public Ped KnownPed { get; private set; } = null;
