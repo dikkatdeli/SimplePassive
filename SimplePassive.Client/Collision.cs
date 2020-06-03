@@ -30,15 +30,15 @@ namespace SimplePassive.Client
         /// <summary>
         /// The ped that is controlled by this player.
         /// </summary>
-        public Ped Ped { get; private set; } = null;
+        public Ped KnownPed { get; private set; } = null;
         /// <summary>
         /// The vehicle known used by this player.
         /// </summary>
-        public Vehicle Vehicle { get; private set; } = null;
+        public Vehicle KnownVehicle { get; private set; } = null;
         /// <summary>
         /// The last trailer or towed vehicle used by this pllayer.
         /// </summary>
-        public Vehicle Hooked { get; private set; } = null;
+        public Vehicle KnownHooked { get; private set; } = null;
 
         #endregion
 
