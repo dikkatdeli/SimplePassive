@@ -20,6 +20,10 @@ namespace SimplePassive.Client
         /// </summary>
         public readonly Dictionary<int, bool> activations = new Dictionary<int, bool>();
         /// <summary>
+        /// Set of collision detection and changes for each individual player.
+        /// </summary>
+        public readonly Dictionary<int, Collision> collisions = new Dictionary<int, Collision>();
+        /// <summary>
         /// Print the entities changed during the next game tick.
         /// </summary>
         public bool printNextTick = false;
@@ -92,10 +96,42 @@ namespace SimplePassive.Client
         }
 
         /// <summary>
+        /// Applies the collision changes based on the passive mode activations.
+        /// </summary>
+        [Tick]
+        public async Task ApplyCollisions()
+        {
+            // Get the activation of the local player
+            bool local = GetPlayerActivation(Game.Player.ServerId);
+
+            // Iterate over the list of players
+            foreach (Player player in Players)
+            {
+                // Make sure that we skip the current player
+                if (player == Game.Player)
+                {
+                    continue;
+                }
+
+                // Get the activation of the other player
+                bool other = GetPlayerActivation(player.ServerId);
+
+                // If the player does not has an entry for the collision changes, create a new object
+                if (!collisions.ContainsKey(player.ServerId))
+                {
+                    collisions[player.ServerId] = new Collision(player);
+                }
+
+                // And tell the game to update the collisions
+                collisions[player.ServerId].UpdateCollisions(other || local);
+            }
+        }
+
+        /// <summary>
         /// Tick event that handles the collisions of Passive Mode.
         /// </summary>
         /// <returns></returns>
-        [Tick]
+        /// [Tick]
         public async Task HandleCollisions()
         {
             // Create some references to the local player ped and vehicle
