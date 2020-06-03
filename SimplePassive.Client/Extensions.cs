@@ -58,7 +58,7 @@ namespace SimplePassive.Client
         /// Draws a debug symbol on top of the entity.
         /// </summary>
         /// <param name="entity">The entity to use.</param>
-        public static void DrawDebugMarker(this Entity entity, int r, int g, int b)
+        public static void DrawDebugMarker(this Entity entity, bool isPlayer, bool activated)
         {
             // If the entity does not exists, return
             if (entity == null || !entity.Exists())
@@ -66,18 +66,53 @@ namespace SimplePassive.Client
                 return;
             }
 
-            // If the entity is on the screen
-            if (entity.IsOnScreen)
+            // If the entity is not on the screen, return
+            if (!entity.IsOnScreen)
             {
-                // Get the position 
-                PointF pos = Screen.WorldToScreen(entity.Position);
-                // And draw a text on the same position
-                new Text(entity.Handle.ToString(), pos, 1)
-                {
-                    Color = Color.FromArgb(r, g, b),
-                    Centered = true
-                }.Draw();
+                return;
             }
+
+            // Create a place to store the color
+            int r, g, b;
+            // And select the correct one based on the parameters
+            if (isPlayer)
+            {
+                // https://en.wikipedia.org/wiki/Shades_of_pink#Hot_pink
+                r = 255;
+                g = 105;
+                b = 180;
+            }
+            else if (activated)
+            {
+                // https://en.wikipedia.org/wiki/Shades_of_green#Lime_green
+                r = 50;
+                g = 205;
+                b = 50;
+            }
+            else
+            {
+                // https://en.wikipedia.org/wiki/Shades_of_yellow#Yellow_(RGB)_(X11_yellow)_(color_wheel_yellow)
+                r = 255;
+                g = 255;
+                b = 0;
+            }
+
+            // Create a place to store the position of the entity
+            Vector3 vector = entity.Position;
+            // If this is a ped, get the position of the head
+            if (entity is Ped ped)
+            {
+                vector = ped.Bones[Bone.SKEL_Head].Position;
+            }
+
+            // Convert the position to the screen
+            PointF pos = Screen.WorldToScreen(vector);
+            // And draw a text on the same position
+            new Text(entity.Handle.ToString(), pos, 1)
+            {
+                Color = Color.FromArgb(r, g, b),
+                Centered = true
+            }.Draw();
         }
         /// <summary>
         /// Changes the collisions between two entities.

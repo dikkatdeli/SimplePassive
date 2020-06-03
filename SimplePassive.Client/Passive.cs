@@ -176,9 +176,11 @@ namespace SimplePassive.Client
             // On debug mode, draw markers on top of the player entities
             if (Convars.Debug)
             {
+                /*
                 localPed?.DrawDebugMarker(255, 255, 255);
                 localVehicle?.DrawDebugMarker(255, 255, 255);
                 localHooked?.DrawDebugMarker(255, 255, 255);
+                */
             }
 
             // Then, iterate over the list of players
@@ -266,9 +268,11 @@ namespace SimplePassive.Client
                     // On debug mode, draw markers over the other player entities (if found)
                     if (Convars.Debug)
                     {
+                        /*
                         otherPed?.DrawDebugMarker(100, 75, 80);
                         otherVehicle?.DrawDebugMarker(100, 75, 80);
                         otherHooked?.DrawDebugMarker(100, 75, 80);
+                        */
                     }
                 }
             }
