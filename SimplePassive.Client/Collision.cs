@@ -102,6 +102,7 @@ namespace SimplePassive.Client
                 otherPed?.ChangeCollisions(localPed, enabled);
                 otherPed?.ChangeCollisions(localVehicle, enabled);
                 otherPed?.ChangeCollisions(localHooked, enabled);
+                otherPed?.SetAlpha(enabled ? Convars.Alpha : 255);
                 KnownPed = otherPed;
             }
             if (KnownVehicle != otherVehicle)
@@ -118,6 +119,7 @@ namespace SimplePassive.Client
                 otherVehicle?.ChangeCollisions(localPed, enabled);
                 otherVehicle?.ChangeCollisions(localVehicle, enabled);
                 otherVehicle?.ChangeCollisions(localHooked, enabled);
+                otherVehicle?.SetAlpha(enabled ? Convars.Alpha : 255);
                 KnownVehicle = otherVehicle;
             }
             if (KnownHooked != otherVehicle)
@@ -134,6 +136,7 @@ namespace SimplePassive.Client
                 otherHooked?.ChangeCollisions(localPed, enabled);
                 otherHooked?.ChangeCollisions(localVehicle, enabled);
                 otherHooked?.ChangeCollisions(localHooked, enabled);
+                otherHooked?.SetAlpha(enabled ? Convars.Alpha : 255);
                 KnownHooked = otherHooked;
             }
 
@@ -199,7 +202,7 @@ namespace SimplePassive.Client
             Vehicle otherVehicle = otherPed.CurrentVehicle;
             Vehicle otherHooked = otherVehicle?.GetHookedVehicle();
 
-            // And disable the collisions between them
+            // Disable the collisions between them
             otherPed?.ChangeCollisions(localPed, enabled);
             otherPed?.ChangeCollisions(localVehicle, enabled);
             otherPed?.ChangeCollisions(localHooked, enabled);
@@ -209,6 +212,11 @@ namespace SimplePassive.Client
             otherHooked?.ChangeCollisions(localPed, enabled);
             otherHooked?.ChangeCollisions(localVehicle, enabled);
             otherHooked?.ChangeCollisions(localHooked, enabled);
+            // And set the correct alpha
+            int alpha = enabled ? Convars.Alpha : 255;
+            otherPed?.SetAlpha(alpha);
+            otherVehicle?.SetAlpha(alpha);
+            otherHooked?.SetAlpha(alpha);
 
             // Once we have finished, save the entities
             KnownPed = otherPed;
