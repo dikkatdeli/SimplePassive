@@ -182,6 +182,7 @@ namespace SimplePassive.Client
 
                     // Otherwise, disable the collisions
 
+                    /*
                     // Local Player vs Other Player
                     localPed.DisableCollisionsThisFrame(otherPed, printNextTick);
                     // Local Player vs Other Vehicle (if present)
@@ -224,6 +225,7 @@ namespace SimplePassive.Client
                     otherHooked?.DisableCollisionsThisFrame(localVehicle, printNextTick);
                     // Other Hooked vs Local Hooked (if present)
                     otherHooked?.DisableCollisionsThisFrame(localHooked, printNextTick);
+                    */
 
                     // On debug mode, draw markers over the other player entities (if found)
                     if (Convars.Debug)

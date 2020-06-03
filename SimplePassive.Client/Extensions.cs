@@ -80,26 +80,26 @@ namespace SimplePassive.Client
             }
         }
         /// <summary>
-        /// Disables the collisions between two entities during the next frame.
+        /// Changes the collisions between two entities.
         /// </summary>
         /// <param name="one">The first entity.</param>
         /// <param name="two">The second entity.</param>
-        public static void DisableCollisionsThisFrame(this Entity one, Entity two, bool print)
+        public static void ChangeCollisions(this Entity one, Entity two, bool enabled)
         {
             // If one of the entities is null, return
             if (one == null || two == null)
             {
                 return;
             }
-
-            // Otherwise, just disable the collisions
-            API.SetEntityNoCollisionEntity(one.Handle, two.Handle, true);
-            API.SetEntityNoCollisionEntity(two.Handle, one.Handle, true);
-
-            // If we need to print the handles of the entities, do it
-            if (print)
+            // Otherwise, enable the collisions by disabling them only during the next frame
+            API.SetEntityNoCollisionEntity(one.Handle, two.Handle, !enabled);
+            API.SetEntityNoCollisionEntity(two.Handle, one.Handle, !enabled);
+            // And log it if required
+            if (Convars.Debug)
             {
-                Debug.WriteLine($"Disabled collisions between {one.Handle} and {two.Handle}");
+                string message = $"Collisions between {one.Handle} and {two.Handle} set to {!enabled}";
+                Debug.WriteLine(message);
+                Screen.ShowNotification(message);
             }
         }
         /// <summary>
