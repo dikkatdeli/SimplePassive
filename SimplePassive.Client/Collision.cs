@@ -117,9 +117,36 @@ namespace SimplePassive.Client
                 otherHooked?.ChangeCollisions(localHooked, enabled);
                 KnownHooked = otherHooked;
             }
+
             if (lastPed != localPed)
             {
+                lastPed?.ChangeCollisions(otherPed, true);
+                lastPed?.ChangeCollisions(otherVehicle, true);
+                lastPed?.ChangeCollisions(otherHooked, true);
+                localPed?.ChangeCollisions(otherPed, enabled);
+                localPed?.ChangeCollisions(otherVehicle, enabled);
+                localPed?.ChangeCollisions(otherHooked, enabled);
                 lastPed = localPed;
+            }
+            if (lastVehicle != localVehicle)
+            {
+                lastVehicle?.ChangeCollisions(otherPed, true);
+                lastVehicle?.ChangeCollisions(otherVehicle, true);
+                lastVehicle?.ChangeCollisions(otherHooked, true);
+                localVehicle?.ChangeCollisions(otherPed, enabled);
+                localVehicle?.ChangeCollisions(otherVehicle, enabled);
+                localVehicle?.ChangeCollisions(otherHooked, enabled);
+                lastVehicle = localVehicle;
+            }
+            if (lastHooked != localHooked)
+            {
+                lastHooked?.ChangeCollisions(otherPed, true);
+                lastHooked?.ChangeCollisions(otherVehicle, true);
+                lastHooked?.ChangeCollisions(otherHooked, true);
+                localHooked?.ChangeCollisions(otherPed, enabled);
+                localHooked?.ChangeCollisions(otherVehicle, enabled);
+                localHooked?.ChangeCollisions(otherHooked, enabled);
+                lastHooked = localHooked;
             }
         }
         /// <summary>
