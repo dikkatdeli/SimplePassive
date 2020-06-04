@@ -35,15 +35,15 @@ namespace SimplePassive.Client
         /// <summary>
         /// The ped that is controlled by this player.
         /// </summary>
-        public Ped KnownPed { get; private set; } = null;
+        public Ped PlayerKnownPed { get; private set; } = null;
         /// <summary>
         /// The vehicle known used by this player.
         /// </summary>
-        public Vehicle KnownVehicle { get; private set; } = null;
+        public Vehicle PlayerKnownVehicle { get; private set; } = null;
         /// <summary>
         /// The last trailer or towed vehicle used by this pllayer.
         /// </summary>
-        public Vehicle KnownHooked { get; private set; } = null;
+        public Vehicle PlayerKnownHooked { get; private set; } = null;
 
         #endregion
 
@@ -88,7 +88,7 @@ namespace SimplePassive.Client
             // If the previously known entities do not match the current ones
             // Enable the collisions against the old one and Disable them against the new one
             // Once that is done, save the new one
-            if (KnownPed != otherPed)
+            if (PlayerKnownPed != otherPed)
             {
                 if (Convars.Debug)
                 {
@@ -96,16 +96,16 @@ namespace SimplePassive.Client
                     Debug.WriteLine(message);
                     Screen.ShowNotification(message);
                 }
-                KnownPed?.ChangeCollisions(localPed, true);
-                KnownPed?.ChangeCollisions(localVehicle, true);
-                KnownPed?.ChangeCollisions(localHooked, true);
+                PlayerKnownPed?.ChangeCollisions(localPed, true);
+                PlayerKnownPed?.ChangeCollisions(localVehicle, true);
+                PlayerKnownPed?.ChangeCollisions(localHooked, true);
                 otherPed?.ChangeCollisions(localPed, enabled);
                 otherPed?.ChangeCollisions(localVehicle, enabled);
                 otherPed?.ChangeCollisions(localHooked, enabled);
                 otherPed?.SetAlpha(enabled ? Convars.Alpha : 255);
-                KnownPed = otherPed;
+                PlayerKnownPed = otherPed;
             }
-            if (KnownVehicle != otherVehicle)
+            if (PlayerKnownVehicle != otherVehicle)
             {
                 if (Convars.Debug)
                 {
@@ -113,16 +113,16 @@ namespace SimplePassive.Client
                     Debug.WriteLine(message);
                     Screen.ShowNotification(message);
                 }
-                KnownVehicle?.ChangeCollisions(localPed, true);
-                KnownVehicle?.ChangeCollisions(localVehicle, true);
-                KnownVehicle?.ChangeCollisions(localHooked, true);
+                PlayerKnownVehicle?.ChangeCollisions(localPed, true);
+                PlayerKnownVehicle?.ChangeCollisions(localVehicle, true);
+                PlayerKnownVehicle?.ChangeCollisions(localHooked, true);
                 otherVehicle?.ChangeCollisions(localPed, enabled);
                 otherVehicle?.ChangeCollisions(localVehicle, enabled);
                 otherVehicle?.ChangeCollisions(localHooked, enabled);
                 otherVehicle?.SetAlpha(enabled ? Convars.Alpha : 255);
-                KnownVehicle = otherVehicle;
+                PlayerKnownVehicle = otherVehicle;
             }
-            if (KnownHooked != otherVehicle)
+            if (PlayerKnownHooked != otherVehicle)
             {
                 if (Convars.Debug)
                 {
@@ -130,14 +130,14 @@ namespace SimplePassive.Client
                     Debug.WriteLine(message);
                     Screen.ShowNotification(message);
                 }
-                KnownHooked?.ChangeCollisions(localPed, true);
-                KnownHooked?.ChangeCollisions(localVehicle, true);
-                KnownHooked?.ChangeCollisions(localHooked, true);
+                PlayerKnownHooked?.ChangeCollisions(localPed, true);
+                PlayerKnownHooked?.ChangeCollisions(localVehicle, true);
+                PlayerKnownHooked?.ChangeCollisions(localHooked, true);
                 otherHooked?.ChangeCollisions(localPed, enabled);
                 otherHooked?.ChangeCollisions(localVehicle, enabled);
                 otherHooked?.ChangeCollisions(localHooked, enabled);
                 otherHooked?.SetAlpha(enabled ? Convars.Alpha : 255);
-                KnownHooked = otherHooked;
+                PlayerKnownHooked = otherHooked;
             }
 
             if (lastPed != localPed)
@@ -219,9 +219,9 @@ namespace SimplePassive.Client
             otherHooked?.SetAlpha(alpha);
 
             // Once we have finished, save the entities
-            KnownPed = otherPed;
-            KnownVehicle = otherVehicle;
-            KnownHooked = otherHooked;
+            PlayerKnownPed = otherPed;
+            PlayerKnownVehicle = otherVehicle;
+            PlayerKnownHooked = otherHooked;
         }
 
         #endregion
