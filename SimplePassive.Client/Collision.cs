@@ -5,23 +5,6 @@ namespace SimplePassive.Client
 {
     public class Collision
     {
-        #region Private Fields
-
-        /// <summary>
-        /// Last ped known by the local player.
-        /// </summary>
-        private Ped lastPed = null;
-        /// <summary>
-        /// Last vehicle known by the local player.
-        /// </summary>
-        private Vehicle lastVehicle = null;
-        /// <summary>
-        /// Last hooked entity known by the local player.
-        /// </summary>
-        private Vehicle lastHooked = null;
-
-        #endregion
-
         #region Public Properties
 
         /// <summary>
@@ -32,6 +15,18 @@ namespace SimplePassive.Client
         /// The passive activation of this player.
         /// </summary>
         public bool LastActivation { get; set; }
+        /// <summary>
+        /// Last ped known by the local player.
+        /// </summary>
+        public Ped LocalKnownPed { get; private set; } = null;
+        /// <summary>
+        /// Last vehicle known by the local player.
+        /// </summary>
+        public Vehicle LocalKnownVehicle { get; private set; } = null;
+        /// <summary>
+        /// Last hooked entity known by the local player.
+        /// </summary>
+        public Vehicle LocalKnownHooked { get; private set; } = null;
         /// <summary>
         /// The ped that is controlled by this player.
         /// </summary>
@@ -140,7 +135,7 @@ namespace SimplePassive.Client
                 PlayerKnownHooked = otherHooked;
             }
 
-            if (lastPed != localPed)
+            if (LocalKnownPed != localPed)
             {
                 if (Convars.Debug)
                 {
@@ -148,15 +143,15 @@ namespace SimplePassive.Client
                     Debug.WriteLine(message);
                     Screen.ShowNotification(message);
                 }
-                lastPed?.ChangeCollisions(otherPed, true);
-                lastPed?.ChangeCollisions(otherVehicle, true);
-                lastPed?.ChangeCollisions(otherHooked, true);
+                LocalKnownPed?.ChangeCollisions(otherPed, true);
+                LocalKnownPed?.ChangeCollisions(otherVehicle, true);
+                LocalKnownPed?.ChangeCollisions(otherHooked, true);
                 localPed?.ChangeCollisions(otherPed, enabled);
                 localPed?.ChangeCollisions(otherVehicle, enabled);
                 localPed?.ChangeCollisions(otherHooked, enabled);
-                lastPed = localPed;
+                LocalKnownPed = localPed;
             }
-            if (lastVehicle != localVehicle)
+            if (LocalKnownVehicle != localVehicle)
             {
                 if (Convars.Debug)
                 {
@@ -164,15 +159,15 @@ namespace SimplePassive.Client
                     Debug.WriteLine(message);
                     Screen.ShowNotification(message);
                 }
-                lastVehicle?.ChangeCollisions(otherPed, true);
-                lastVehicle?.ChangeCollisions(otherVehicle, true);
-                lastVehicle?.ChangeCollisions(otherHooked, true);
+                LocalKnownVehicle?.ChangeCollisions(otherPed, true);
+                LocalKnownVehicle?.ChangeCollisions(otherVehicle, true);
+                LocalKnownVehicle?.ChangeCollisions(otherHooked, true);
                 localVehicle?.ChangeCollisions(otherPed, enabled);
                 localVehicle?.ChangeCollisions(otherVehicle, enabled);
                 localVehicle?.ChangeCollisions(otherHooked, enabled);
-                lastVehicle = localVehicle;
+                LocalKnownVehicle = localVehicle;
             }
-            if (lastHooked != localHooked)
+            if (LocalKnownHooked != localHooked)
             {
                 if (Convars.Debug)
                 {
@@ -180,13 +175,13 @@ namespace SimplePassive.Client
                     Debug.WriteLine(message);
                     Screen.ShowNotification(message);
                 }
-                lastHooked?.ChangeCollisions(otherPed, true);
-                lastHooked?.ChangeCollisions(otherVehicle, true);
-                lastHooked?.ChangeCollisions(otherHooked, true);
+                LocalKnownHooked?.ChangeCollisions(otherPed, true);
+                LocalKnownHooked?.ChangeCollisions(otherVehicle, true);
+                LocalKnownHooked?.ChangeCollisions(otherHooked, true);
                 localHooked?.ChangeCollisions(otherPed, enabled);
                 localHooked?.ChangeCollisions(otherVehicle, enabled);
                 localHooked?.ChangeCollisions(otherHooked, enabled);
-                lastHooked = localHooked;
+                LocalKnownHooked = localHooked;
             }
         }
         /// <summary>
