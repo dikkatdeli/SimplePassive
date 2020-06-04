@@ -368,6 +368,34 @@ namespace SimplePassive.Client
                 printNextTick = true;
             }
         }
+        /// <summary>
+        /// Prints the entities known by the collision information.
+        /// </summary>
+        [Command("passiveentities")]
+        public void EntitiesCommand(int source, List<object> args, string raw)
+        {
+            // If debug mode is disabled or no parameters were specified, return
+            if (!Convars.Debug || args.Count == 0)
+            {
+                return;
+            }
+            // If the first argument is invalid, return
+            if (!int.TryParse(args[0].ToString(), out int id))
+            {
+                return;
+            }
+
+            // Otherwise, get the player
+            Player player = Players[id];
+            // If is invalid, silently return
+            if (player == null)
+            {
+                return;
+            }
+
+            // Otherwise, print the handles to the console
+            collisions[player.Handle].PrintInfo();
+        }
 
         #endregion
     }

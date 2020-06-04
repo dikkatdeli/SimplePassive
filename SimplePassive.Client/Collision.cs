@@ -218,6 +218,18 @@ namespace SimplePassive.Client
             PlayerKnownVehicle = otherVehicle;
             PlayerKnownHooked = otherHooked;
         }
+        /// <summary>
+        /// Prints the handles of the entities in the console.
+        /// </summary>
+        public void PrintInfo()
+        {
+            Debug.WriteLine($"Local Known Ped is {(LocalKnownPed == null ? 0 : LocalKnownPed.Handle)}");
+            Debug.WriteLine($"Local Known Vehicle is {(LocalKnownVehicle == null ? 0 : LocalKnownVehicle.Handle)}");
+            Debug.WriteLine($"Local Known Hooked is {(LocalKnownHooked == null ? 0 : LocalKnownHooked.Handle)}");
+            Debug.WriteLine($"Player Known Ped is {(PlayerKnownPed == null ? 0 : PlayerKnownPed.Handle)}");
+            Debug.WriteLine($"Player Known Vehicle is {(PlayerKnownVehicle == null ? 0 : PlayerKnownVehicle.Handle)}");
+            Debug.WriteLine($"Player Known Hooked is {(PlayerKnownHooked == null ? 0 : PlayerKnownHooked.Handle)}");
+        }
 
         #endregion
     }
