@@ -74,7 +74,7 @@ namespace SimplePassive.Client
         /// Shows the text with the debugging information.
         /// </summary>
         [Tick]
-        public async Task ShowDebugText()
+        public async Task DebugText()
         {
             // If debug mode is disabled, just return
             if (!Convars.Debug)
@@ -93,6 +93,36 @@ namespace SimplePassive.Client
             debugText += $"\nLocal Status: {GetPlayerActivation(Game.Player.ServerId)}";
             // And draw it if the debug mode is enabled
             new Text(debugText, new PointF(0, 0), 0.5f).Draw();
+        }
+
+        /// <summary>
+        /// Draws the entity handle on top of the entities.
+        /// </summary>
+        [Tick]
+        public async Task DebugMarkers()
+        {
+            // If debug mode is disabled, just return
+            if (!Convars.Debug)
+            {
+                return;
+            }
+
+            // Otherwise, iterate over the player
+            foreach (Player player in Players)
+            {
+                // Get the correct parameters
+                bool isLocal = player == Game.Player;
+                bool activation = GetPlayerActivation(player.ServerId);
+
+                // Get the entities of the player
+                Ped ped = player.Character;
+                Vehicle vehicle = ped.CurrentVehicle;
+                Vehicle hooked = vehicle?.GetHookedVehicle();
+                // And draw the correct markers
+                ped?.DrawDebugMarker(isLocal, activation);
+                vehicle?.DrawDebugMarker(isLocal, activation);
+                hooked?.DrawDebugMarker(isLocal, activation);
+            }
         }
 
         /// <summary>
