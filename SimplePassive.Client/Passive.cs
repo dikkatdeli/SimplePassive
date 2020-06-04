@@ -350,6 +350,11 @@ namespace SimplePassive.Client
             {
                 activations.Remove(id);
             }
+            // And then do the same for collision activation
+            if (collisions.ContainsKey(id))
+            {
+                collisions.Remove(id);
+            }
         }
 
         #endregion
