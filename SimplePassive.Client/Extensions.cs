@@ -119,7 +119,7 @@ namespace SimplePassive.Client
         /// </summary>
         /// <param name="one">The first entity.</param>
         /// <param name="two">The second entity.</param>
-        public static void ChangeCollisions(this Entity one, Entity two, bool enabled)
+        public static void ChangeCollisions(this Entity one, Entity two, bool enabled, bool log = true)
         {
             // If one of the entities is null, return
             if (one == null || two == null)
@@ -130,7 +130,7 @@ namespace SimplePassive.Client
             API.SetEntityNoCollisionEntity(one.Handle, two.Handle, !enabled);
             API.SetEntityNoCollisionEntity(two.Handle, one.Handle, !enabled);
             // And log it if required
-            if (Convars.Debug)
+            if (Convars.Debug && log)
             {
                 string message = $"Collisions between {one.Handle} and {two.Handle} set to {!enabled}";
                 Debug.WriteLine(message);

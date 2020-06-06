@@ -188,7 +188,7 @@ namespace SimplePassive.Client
         /// <summary>
         /// Sets a specific activation for the collisions between the players.
         /// </summary>
-        public void SetCollisions(bool enabled)
+        public void SetCollisions(bool enabled, bool log = true)
         {
             // Get all of the required entities
             Ped localPed = Game.Player.Character;
@@ -199,20 +199,20 @@ namespace SimplePassive.Client
             Vehicle otherHooked = otherVehicle?.GetHookedVehicle();
 
             // Disable the collisions between them
-            otherPed?.ChangeCollisions(localPed, enabled);
-            otherPed?.ChangeCollisions(localVehicle, enabled);
-            otherPed?.ChangeCollisions(localHooked, enabled);
+            otherPed?.ChangeCollisions(localPed, enabled, log);
+            otherPed?.ChangeCollisions(localVehicle, enabled, log);
+            otherPed?.ChangeCollisions(localHooked, enabled, log);
             if (!(otherVehicle != null &&
                 API.IsPedInVehicle(otherVehicle.Handle, localPed.Handle, false) &&
                 otherVehicle.GetPedOnSeat(VehicleSeat.Driver) != localPed))
             {
-                otherVehicle?.ChangeCollisions(localPed, enabled);
-                otherVehicle?.ChangeCollisions(localVehicle, enabled);
-                otherVehicle?.ChangeCollisions(localHooked, enabled);
+                otherVehicle?.ChangeCollisions(localPed, enabled, log);
+                otherVehicle?.ChangeCollisions(localVehicle, enabled, log);
+                otherVehicle?.ChangeCollisions(localHooked, enabled, log);
             }
-            otherHooked?.ChangeCollisions(localPed, enabled);
-            otherHooked?.ChangeCollisions(localVehicle, enabled);
-            otherHooked?.ChangeCollisions(localHooked, enabled);
+            otherHooked?.ChangeCollisions(localPed, enabled, log);
+            otherHooked?.ChangeCollisions(localVehicle, enabled, log);
+            otherHooked?.ChangeCollisions(localHooked, enabled, log);
             // And set the correct alpha
             int alpha = enabled ? Convars.Alpha : 255;
             otherPed?.SetAlpha(alpha);

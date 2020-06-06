@@ -153,7 +153,7 @@ namespace SimplePassive.Client
                 {
                     if (other || local)
                     {
-                        collisions[player.ServerId].SetCollisions(false);
+                        collisions[player.ServerId].SetCollisions(false, false);
                     }
                 }
                 else
