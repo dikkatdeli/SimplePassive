@@ -23,10 +23,6 @@ namespace SimplePassive.Client
         /// Set of collision detection and changes for each individual player.
         /// </summary>
         public readonly Dictionary<int, Collision> collisions = new Dictionary<int, Collision>();
-        /// <summary>
-        /// Print the entities changed during the next game tick.
-        /// </summary>
-        public bool printNextTick = false;
 
         #endregion
 
@@ -246,18 +242,6 @@ namespace SimplePassive.Client
 
         #region Debug Commands
 
-        /// <summary>
-        /// Prints the collisions changed during the next tick.
-        /// </summary>
-        [Command("passiveprinttick")]
-        public void ShowNextTickCommand()
-        {
-            // If debug mode is enabled, set printNextTick to true
-            if (Convars.Debug)
-            {
-                printNextTick = true;
-            }
-        }
         /// <summary>
         /// Prints the entities known by the collision information.
         /// </summary>
