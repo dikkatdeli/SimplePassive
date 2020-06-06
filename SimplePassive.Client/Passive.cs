@@ -152,8 +152,18 @@ namespace SimplePassive.Client
                     collisions[player.ServerId] = new Collision(player);
                 }
 
-                // And tell the game to update the collisions
-                collisions[player.ServerId].UpdateCollisions(other || local);
+                // And tell the game to update the collisions based on the tick paramter
+                if (Convars.TickOnly)
+                {
+                    if (other || local)
+                    {
+                        collisions[player.ServerId].SetCollisions(false);
+                    }
+                }
+                else
+                {
+                    collisions[player.ServerId].UpdateCollisions(other || local);
+                }
             }
         }
 

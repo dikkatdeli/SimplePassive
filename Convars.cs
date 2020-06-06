@@ -30,6 +30,10 @@ namespace SimplePassive
         /// If the combat features should be disabled when passive is enabled.
         /// </summary>
         public static bool DisableCombat => Convert.ToBoolean(API.GetConvarInt("simplepassive_disablecombat", 0));
+        /// <summary>
+        /// Disable the colisions every tick instead of switching them when needed.
+        /// </summary>
+        public static bool TickOnly => Convert.ToBoolean(API.GetConvarInt("simplepassive_tickonly", 1));
 #endif
     }
 }
