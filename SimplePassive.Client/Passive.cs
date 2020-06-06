@@ -168,6 +168,33 @@ namespace SimplePassive.Client
         }
 
         /// <summary>
+        /// Disables the combat for the local player.
+        /// </summary>
+        [Tick]
+        public async Task DisableCombat()
+        {
+            // If the local player has passive mode enabled and combat should be disabled
+            if (GetPlayerActivation(Game.Player.ServerId) && Convars.DisableCombat)
+            {
+                // There are some values that we set on the activationChanged event
+                // If is not on this chunk, is probably on that event
+
+                // Disable the firing of weapons
+                API.DisablePlayerFiring(Game.Player.Handle, true);
+                // And disable the controls related to attacking
+                Game.DisableControlThisFrame(0, Control.MeleeAttack1);
+                Game.DisableControlThisFrame(0, Control.MeleeAttack2);
+                Game.DisableControlThisFrame(0, Control.Attack);
+                Game.DisableControlThisFrame(0, Control.Attack2);
+                Game.DisableControlThisFrame(0, Control.VehicleAttack);
+                Game.DisableControlThisFrame(0, Control.VehicleAttack2);
+                Game.DisableControlThisFrame(0, Control.VehiclePassengerAttack);
+                Game.DisableControlThisFrame(0, Control.VehicleFlyAttack);
+                Game.DisableControlThisFrame(0, Control.VehicleFlyAttack2);
+            }
+        }
+
+        /// <summary>
         /// Tick event that handles the collisions of Passive Mode.
         /// </summary>
         /// <returns></returns>
@@ -188,30 +215,6 @@ namespace SimplePassive.Client
 
             // Get the activation of the local player for later use
             bool localActivation = GetPlayerActivation(localPlayer.ServerId);
-
-            // If the local player has passive mode enabled
-            if (localActivation)
-            {
-                // If the player is not allowed to fight other players
-                if (Convars.DisableCombat)
-                {
-                    // There are some values that we set on the activationChanged event
-                    // If is not on this chunk, is probably on that event
-
-                    // Disable the firing of weapons
-                    API.DisablePlayerFiring(localPlayer.Handle, true);
-                    // And disable the controls related to attacking
-                    Game.DisableControlThisFrame(0, Control.MeleeAttack1);
-                    Game.DisableControlThisFrame(0, Control.MeleeAttack2);
-                    Game.DisableControlThisFrame(0, Control.Attack);
-                    Game.DisableControlThisFrame(0, Control.Attack2);
-                    Game.DisableControlThisFrame(0, Control.VehicleAttack);
-                    Game.DisableControlThisFrame(0, Control.VehicleAttack2);
-                    Game.DisableControlThisFrame(0, Control.VehiclePassengerAttack);
-                    Game.DisableControlThisFrame(0, Control.VehicleFlyAttack);
-                    Game.DisableControlThisFrame(0, Control.VehicleFlyAttack2);
-                }
-            }
 
             // On debug mode, draw markers on top of the player entities
             if (Convars.Debug)
