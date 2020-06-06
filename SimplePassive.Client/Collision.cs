@@ -202,9 +202,14 @@ namespace SimplePassive.Client
             otherPed?.ChangeCollisions(localPed, enabled);
             otherPed?.ChangeCollisions(localVehicle, enabled);
             otherPed?.ChangeCollisions(localHooked, enabled);
-            otherVehicle?.ChangeCollisions(localPed, enabled);
-            otherVehicle?.ChangeCollisions(localVehicle, enabled);
-            otherVehicle?.ChangeCollisions(localHooked, enabled);
+            if (!(otherVehicle != null &&
+                API.IsPedInVehicle(otherVehicle.Handle, localPed.Handle, false) &&
+                otherVehicle.GetPedOnSeat(VehicleSeat.Driver) != localPed))
+            {
+                otherVehicle?.ChangeCollisions(localPed, enabled);
+                otherVehicle?.ChangeCollisions(localVehicle, enabled);
+                otherVehicle?.ChangeCollisions(localHooked, enabled);
+            }
             otherHooked?.ChangeCollisions(localPed, enabled);
             otherHooked?.ChangeCollisions(localVehicle, enabled);
             otherHooked?.ChangeCollisions(localHooked, enabled);

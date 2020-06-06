@@ -239,67 +239,6 @@ namespace SimplePassive.Client
                 {
                     continue;
                 }
-
-                // Set the correct alpha for the other entities (just in case the resource restarted with passive enabled)
-
-                // If passive mode is activated by the other or local player
-                if (disableCollisions)
-                {
-                    // If the other player is using a vehicle, we are seated on it and we are not the driver, continue
-                    if (otherVehicle != null &&
-                        API.IsPedInVehicle(otherVehicle.Handle, localPed.Handle, false) &&
-                        otherVehicle.GetPedOnSeat(VehicleSeat.Driver) != localPed)
-                    {
-                        continue;
-                    }
-
-                    // Otherwise, disable the collisions
-
-                    /*
-                    // Local Player vs Other Player
-                    localPed.DisableCollisionsThisFrame(otherPed, printNextTick);
-                    // Local Player vs Other Vehicle (if present)
-                    localPed.DisableCollisionsThisFrame(otherVehicle, printNextTick);
-                    // Local Player vs Other Hooked (if present)
-                    localPed.DisableCollisionsThisFrame(otherHooked, printNextTick);
-
-                    // Local Vehicle vs Other Player
-                    localVehicle?.DisableCollisionsThisFrame(otherPed, printNextTick);
-                    // Local Vehicle vs Other Vehicle (if present)
-                    localVehicle?.DisableCollisionsThisFrame(otherVehicle, printNextTick);
-                    // Local Vehicle vs Other Hooked (if present)
-                    localVehicle?.DisableCollisionsThisFrame(otherHooked, printNextTick);
-
-                    // Local Hooked vs Other Player
-                    localHooked?.DisableCollisionsThisFrame(otherPed, printNextTick);
-                    // Local Hooked vs Other Vehicle (if present)
-                    localHooked?.DisableCollisionsThisFrame(otherVehicle, printNextTick);
-                    // Local Hooked vs Other Hooked (if present)
-                    localHooked?.DisableCollisionsThisFrame(otherHooked, printNextTick);
-
-
-                    // Other Player vs Local Player
-                    otherPed.DisableCollisionsThisFrame(localPed, printNextTick);
-                    // Other Player vs Local Vehicle (if present)
-                    otherPed.DisableCollisionsThisFrame(localVehicle, printNextTick);
-                    // Other Player vs Local Hooked (if present)
-                    otherPed.DisableCollisionsThisFrame(localHooked, printNextTick);
-
-                    // Other Vehicle vs Local Player
-                    otherVehicle?.DisableCollisionsThisFrame(localPed, printNextTick);
-                    // Other Vehicle vs Local Vehicle (if present)
-                    otherVehicle?.DisableCollisionsThisFrame(localVehicle, printNextTick);
-                    // Other Vehicle vs Local Hooked (if present)
-                    otherVehicle?.DisableCollisionsThisFrame(localHooked, printNextTick);
-
-                    // Other Hooked vs Local Player
-                    otherHooked?.DisableCollisionsThisFrame(localPed, printNextTick);
-                    // Other Hooked vs Local Vehicle (if present)
-                    otherHooked?.DisableCollisionsThisFrame(localVehicle, printNextTick);
-                    // Other Hooked vs Local Hooked (if present)
-                    otherHooked?.DisableCollisionsThisFrame(localHooked, printNextTick);
-                    */
-                }
             }
 
             // Finally, disable the printing during the next tick (if enabled)
