@@ -196,55 +196,6 @@ namespace SimplePassive.Client
             }
         }
 
-        /// <summary>
-        /// Tick event that handles the collisions of Passive Mode.
-        /// </summary>
-        /// <returns></returns>
-        /// [Tick]
-        public async Task HandleCollisions()
-        {
-            // Create some references to the local player ped and vehicle
-            Player localPlayer = Game.Player;
-            Ped localPed = localPlayer.Character;
-            Vehicle localVehicle = localPed.CurrentVehicle;
-            Vehicle localHooked = localVehicle?.GetHookedVehicle();
-
-            // Get the activation of the local player for later use
-            bool localActivation = GetPlayerActivation(localPlayer.ServerId);
-
-            // On debug mode, draw markers on top of the player entities
-            if (Convars.Debug)
-            {
-                /*
-                localPed?.DrawDebugMarker(255, 255, 255);
-                localVehicle?.DrawDebugMarker(255, 255, 255);
-                localHooked?.DrawDebugMarker(255, 255, 255);
-                */
-            }
-
-            // Then, iterate over the list of players
-            foreach (Player player in Players)
-            {
-                // Get the correct activation for this player
-                bool playerActivation = GetPlayerActivation(player.ServerId);
-                bool disableCollisions = playerActivation || localActivation;
-
-                // Save the ped and vehicle of the other player
-                Ped otherPed = player.Character;
-                Vehicle otherVehicle = otherPed.CurrentVehicle;
-                Vehicle otherHooked = otherVehicle?.GetHookedVehicle();
-
-                // If the player is the same as the local one, skip this iteration
-                if (player == localPlayer)
-                {
-                    continue;
-                }
-            }
-
-            // Finally, disable the printing during the next tick (if enabled)
-            printNextTick = false;
-        }
-
         #endregion
 
         #region Network Events
