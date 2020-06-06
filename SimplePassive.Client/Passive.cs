@@ -152,7 +152,7 @@ namespace SimplePassive.Client
                     collisions[player.ServerId] = new Collision(player);
                 }
 
-                // And tell the game to update the collisions based on the tick paramter
+                // Update the collisions during the current tick or permanently
                 if (Convars.TickOnly)
                 {
                     if (other || local)
@@ -164,6 +164,8 @@ namespace SimplePassive.Client
                 {
                     collisions[player.ServerId].UpdateCollisions(other || local);
                 }
+                // And set the alpha of the entities
+                collisions[player.ServerId].SetAlpha(other || local);
             }
         }
 
@@ -207,12 +209,6 @@ namespace SimplePassive.Client
             Vehicle localVehicle = localPed.CurrentVehicle;
             Vehicle localHooked = localVehicle?.GetHookedVehicle();
 
-            // Set the alpha of the player vehicle to maximum if is present
-            if (localVehicle != null)
-            {
-                API.ResetEntityAlpha(localVehicle.Handle);
-            }
-
             // Get the activation of the local player for later use
             bool localActivation = GetPlayerActivation(localPlayer.ServerId);
 
@@ -245,10 +241,6 @@ namespace SimplePassive.Client
                 }
 
                 // Set the correct alpha for the other entities (just in case the resource restarted with passive enabled)
-                int alpha = disableCollisions && !API.GetIsTaskActive(otherPed.Handle, 2) && localVehicle != otherVehicle ? Convars.Alpha : 255;
-                otherPed.SetAlpha(alpha);
-                otherVehicle?.SetAlpha(alpha);
-                otherHooked?.SetAlpha(alpha);
 
                 // If passive mode is activated by the other or local player
                 if (disableCollisions)
@@ -307,16 +299,6 @@ namespace SimplePassive.Client
                     // Other Hooked vs Local Hooked (if present)
                     otherHooked?.DisableCollisionsThisFrame(localHooked, printNextTick);
                     */
-
-                    // On debug mode, draw markers over the other player entities (if found)
-                    if (Convars.Debug)
-                    {
-                        /*
-                        otherPed?.DrawDebugMarker(100, 75, 80);
-                        otherVehicle?.DrawDebugMarker(100, 75, 80);
-                        otherHooked?.DrawDebugMarker(100, 75, 80);
-                        */
-                    }
                 }
             }
 

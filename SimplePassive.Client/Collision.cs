@@ -1,4 +1,5 @@
 ﻿using CitizenFX.Core;
+using CitizenFX.Core.Native;
 using CitizenFX.Core.UI;
 
 namespace SimplePassive.Client
@@ -217,6 +218,25 @@ namespace SimplePassive.Client
             PlayerKnownPed = otherPed;
             PlayerKnownVehicle = otherVehicle;
             PlayerKnownHooked = otherHooked;
+        }
+        /// <summary>
+        /// Sets the alpha of the entities of the other players based on the activation.
+        /// </summary>
+        /// <param name="activation">The current activation of this player.</param>
+        public void SetAlpha(bool activation)
+        {
+            // Get all of the required entities
+            Vehicle localVehicle = Game.Player.Character.CurrentVehicle;
+            Ped otherPed = Owner.Character;
+            Vehicle otherVehicle = otherPed.CurrentVehicle;
+            Vehicle otherHooked = otherVehicle?.GetHookedVehicle();
+            // Restore the alpha of the local vehicle
+            localVehicle?.SetAlpha(255);
+            // And set the correct alpha for the other entities
+            int alpha = activation && !API.GetIsTaskActive(otherPed.Handle, 2) && localVehicle != otherVehicle ? Convars.Alpha : 255;
+            otherPed.SetAlpha(alpha);
+            otherVehicle?.SetAlpha(alpha);
+            otherHooked?.SetAlpha(alpha);
         }
         /// <summary>
         /// Prints the handles of the entities in the console.
